@@ -82,7 +82,23 @@ async function execWithCredentials(
 
   try {
     await exec(
-      `yarn firebase-tools@${firebaseToolsVersion}`,
+      `yarn global add firebase-tools@${firebaseToolsVersion}`,
+      [],
+      {
+        listeners: {
+          stdout(data: Buffer) {
+            deployOutputBuf.push(data);
+          },
+        },
+        env: {
+          ...process.env,
+          FIREBASE_DEPLOY_AGENT: "action-hosting-deploy",
+          GOOGLE_APPLICATION_CREDENTIALS: gacFilename, // the CLI will automatically authenticate with this env variable set
+        },
+      }
+    );
+    await exec(
+      `yarn exec firebase`,
       [
         ...args,
         ...(projectId ? ["--project", projectId] : []),
