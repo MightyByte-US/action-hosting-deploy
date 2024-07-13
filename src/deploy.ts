@@ -98,7 +98,7 @@ async function execWithCredentials(
       }
     );
     await exec(
-      `yarn exec firebase`,
+      `firebase`,
       [
         ...args,
         ...(projectId ? ["--project", projectId] : []),
