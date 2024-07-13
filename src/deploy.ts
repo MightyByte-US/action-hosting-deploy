@@ -82,7 +82,7 @@ async function execWithCredentials(
 
   try {
     await exec(
-      `npx firebase-tools@${firebaseToolsVersion}`,
+      `yarn firebase-tools@${firebaseToolsVersion}`,
       [
         ...args,
         ...(projectId ? ["--project", projectId] : []),
